@@ -1,3 +1,4 @@
+const authentication = require('./middleware/jwtAuth');
 const logger = require('./utils/logger');
 const config = require('./config');
 
@@ -21,8 +22,11 @@ fs.readdirSync(routes).forEach(file => {
     // Register all routes in routes folder. 
     const route = require(`${routes}/${file}`);
     for (let data in route) {
-        const {method, path, handler} = route[data];
-        api[method](path, handler);
+        const {method, path, handler, auth} = route[data];
+        const authType = Object.keys(authentication)[auth];
+        const authFunction = authentication[authType];
+
+        api[method](path, authFunction, handler);
     }
 });
 
