@@ -1,3 +1,6 @@
+const lang = require('../utils/lang');
+
+
 /**
  * Request Type: GET
  * URL: /account
@@ -7,8 +10,8 @@
  * - 200: User Object
  * - 401: Unauthorized
  */
-module.exports.getCurrentUser = (req, res) => {
-    res.json({"test": "test"});
+module.exports.getCurrentUser = async (req, res) => {
+    return res.status(200).json(req.user);
 }
 
 
@@ -22,8 +25,11 @@ module.exports.getCurrentUser = (req, res) => {
  * - 400: Bad Request
  * - 401: Unauthorized
  */
-module.exports.getAccount = (req, res) => {
-    res.json({"test": "test"});
+module.exports.getAccount = async (req, res) => {
+    const {username} = req.params;
+
+    if (!username) return res.status(400).json(lang.account.account_not_exist);
+
 }
 
 
@@ -36,7 +42,7 @@ module.exports.getAccount = (req, res) => {
  * - 200: Array of Post Objects
  * - 401: Unauthorized
  */
-module.exports.getCurrentUserFeed = (req, res) => {
+module.exports.getCurrentUserFeed = async (req, res) => {
     res.json({"test": "test"});
 }
 
@@ -51,6 +57,6 @@ module.exports.getCurrentUserFeed = (req, res) => {
  * - 400: Bad Request
  * - 401: Unauthorized
  */
-module.exports.followAccount = (req, res) => {
+module.exports.followAccount = async (req, res) => {
     res.json({"test": "test"});
 }

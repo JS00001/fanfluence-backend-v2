@@ -2,8 +2,15 @@ const base = new Date();
 const time = `${base.toLocaleDateString()} ${base.getHours()}:${base.getMinutes()}:${base.getSeconds()}`;
 
 const lang = {
+
     // Generic Response Messages
     default: {
+        completed: {
+            response_data: {
+                created_at: time,
+                response_code: 'accepted'
+            }
+        },
         server_error: {
             errors:[{
                 code: 500,
@@ -27,14 +34,8 @@ const lang = {
         }
     },
 
-    // Messages during Registration
+    // ROUTE: /auth/register
     register: {
-        completed: {
-            data: {
-                created_at: time,
-                response_code: 'accepted'
-            }
-        },
         code_invalid: {
             errors: [{
                 code: 400,
@@ -65,14 +66,8 @@ const lang = {
         }
     },
 
-    // Messages during login
+    // ROUTE: /auth/login
     login: {
-        completed: {
-            data: {
-                created_at: time,
-                response_code: 'accepted'
-            }
-        },
         code_invalid: {
             errors: [{
                 code: 400,
@@ -99,6 +94,17 @@ const lang = {
                 code: 401,
                 title: 'Unauthorized',
                 detail: 'this account is currently disabled'
+            }]
+        }
+    },
+
+    // ROUTE: /account
+    account: {
+        account_not_exist: {
+            errors: [{
+                code: 400,
+                title: 'Invalid User',
+                detail: 'this username does not exist'
             }]
         }
     }

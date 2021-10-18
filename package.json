@@ -12,6 +12,7 @@
     "express-json": "^1.0.0",
     "helmet": "^4.6.0",
     "jsonwebtoken": "^8.5.1",
+    "mongo-sanitize": "^1.1.0",
     "mongoose": "^6.0.10",
     "mongoose-autopopulate": "^0.16.0",
     "mongoose-timestamp": "^0.6.0",

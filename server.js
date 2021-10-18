@@ -1,8 +1,8 @@
 const authentication = require('./middleware/jwtAuth');
+const sanitize = require('./middleware/sanitize');
 const logger = require('./utils/logger');
 const config = require('./config');
 
-const bodyParser = require('body-parser');
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
@@ -13,10 +13,9 @@ const api = express();
 const routes = path.join(__dirname, './routes');
 
 api.use(cors());
-api.use(bodyParser.json());
-api.use(bodyParser.urlencoded({ extended: true }));
-api.use(express.json());
+api.use(express.urlencoded({ extended: true }));
 api.use(helmet());
+api.use(sanitize);
 
 fs.readdirSync(routes).forEach(file => {
     // Register all routes in routes folder. 

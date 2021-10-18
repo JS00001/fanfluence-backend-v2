@@ -30,7 +30,7 @@ module.exports.register = async (req, res) => {
         if (findPhone) return res.status(400).json(lang.register.phone_in_use);
 
         sendCode(phoneNumber)
-        .then(() => res.status(200).json(lang.register.completed))
+        .then(() => res.status(200).json(lang.default.completed))
         .catch(() => res.status(400).json(lang.register.phone_invalid));
     }
 
@@ -43,7 +43,7 @@ module.exports.register = async (req, res) => {
                 {$setOnInsert: {verified: true}}, 
                 {returnOriginal: false, upsert: true}
             )
-            res.status(200).json(lang.register.completed);
+            res.status(200).json(lang.default.completed);
         })
         .catch(() => res.status(400).json(lang.register.code_invalid));
     }
@@ -56,7 +56,7 @@ module.exports.register = async (req, res) => {
 
         const userDocument = await UserSchema.create({phoneNumber, username});
 
-        const successMessage = lang.register.completed;
+        const successMessage = lang.default.completed;
         successMessage.data.authorization = createToken(userDocument.toObject());
         return res.status(200).json(successMessage);
     }
@@ -92,14 +92,14 @@ module.exports.login = async (req, res) => {
         if (!active) return res.status(401).json(lang.login.account_disabled);
 
         sendCode(phoneNumber)
-        .then(() => res.status(200).json(lang.login.completed))
+        .then(() => res.status(200).json(lang.default.completed))
         .catch(() => res.status(400).json(lang.login.phone_invalid));
     }
 
     else {
         verifyCode(phoneNumber, code)
         .then(() => {
-            const successMessage = lang.login.completed;
+            const successMessage = lang.default.completed;
             successMessage.data.authorization = createToken(findAccount.toObject());
             return res.status(200).json(successMessage)
         })
